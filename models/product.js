@@ -9,7 +9,13 @@ const getAllProducts = function (cb) {
     if (err) {
       return cb([]);
     } else {
-      return cb(JSON.parse(data));
+      try {
+        const products = JSON.parse(data);
+        return cb(products);
+      } catch (err) {
+        console.error("Error parsing JSON:", err);
+        return cb([]);
+      }
     }
   });
 };
