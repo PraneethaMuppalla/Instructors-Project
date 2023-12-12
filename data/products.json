@@ -1,9 +1,1 @@
-[
-  {
-    "id": "32456",
-    "title": "A Book",
-    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
-    "description": "This is an awesome book!",
-    "price": "19"
-  }
-]
+[{"id":"0.1549796581930014","title":"Book","imageUrl":"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconpacks.net%2Ffree-icon%2Fbook-4986.html&psig=AOvVaw1QA4yEaHl1JNzLyD7s6H63&ust=1702462061033000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDI-MrTiYMDFQAAAAAdAAAAABAD","description":"A special book","price":"30"},{"id":"0.1886227786944632","title":"Tin","imageUrl":"https://image.made-in-china.com/2f0j00bcCkZrlPntoe/Free-Sample-Customized-Printing-Small-Round-Aluminum-Tin-Jar-for-Cosmetic-Packaging.webp","description":"A small tin.","price":"20"}]
