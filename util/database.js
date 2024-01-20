@@ -1,7 +1,15 @@
-const { Sequelize } = require("sequelize");
+const mongodb = require("mongodb");
+const MongoClient = mongodb.MongoClient;
 
-const sequelize = new Sequelize("node-practice", "root", "1234", {
-  dialect: "mysql",
-  host: "localhost",
-});
-module.exports = sequelize;
+const MongoConnect = (cb) => {
+  MongoClient.connect(process.env.MONGO_DRIVER)
+    .then((result) => {
+      console.log("connected");
+      cb(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+module.exports = MongoConnect;
