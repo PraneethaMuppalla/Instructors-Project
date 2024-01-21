@@ -54,7 +54,7 @@ exports.getCart = (req, res, next) => {
   req.user
     .getCart()
     .then((products) => {
-      console.log("products===>>>>>>" + products);
+      console.log(products);
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",
@@ -99,53 +99,12 @@ exports.postCart = (req, res, next) => {
       res.redirect("/cart");
     })
     .catch((err) => console.error(err));
-  // let fetchedCart;
-  // let newQuantity = 1;
-  // req.user
-  //   .getCart()
-  //   .then((cart) => {
-  //     fetchedCart = cart;
-  //     return cart.getProducts({ where: { id: prodId } });
-  //   })
-  //   .then((products) => {
-  //     //res.json(products);
-  //     let product;
-  //     if (products.length > 0) {
-  //       product = products[0];
-  //     }
-  //     if (product) {
-  //       newQuantity = product["cart-item"].quantity + 1;
-  //     }
-  //     return Product.findByPk(prodId);
-  //   })
-  //   .then((product) => {
-  //     return fetchedCart.addProduct(product, {
-  //       through: { quantity: newQuantity },
-  //     });
-  //   })
-  //   .then(() => {
-  //     res.redirect("/cart");
-  //   })
-  //   .catch((err) => console.error("err while posting products===>>>>>" + err));
-  // // Product.findProduct(prodId, (product) => {
-  // //   Cart.addProduct(product.id, product.price);
-  // // });
-
-  // res.redirect("/cart");
 };
 
 exports.deleteCartItem = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .getCart()
-    .then((cart) => {
-      console.log("sql ============>>>>>>>>>>>");
-      return cart.getProducts({ where: { id: prodId } });
-    })
-    .then(([product]) => {
-      console.log("sql2 ============>>>>>>>>>>>");
-      return product["cart-item"].destroy();
-    })
+    .deleteFromCart(prodId)
     .then(() => {
       res.redirect("/cart");
     })
