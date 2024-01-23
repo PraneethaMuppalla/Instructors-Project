@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const errorController = require("./controllers/error");
-// const User = require("./models/user");
+const User = require("./models/user");
 
 const app = express();
 
@@ -20,14 +20,14 @@ const shopRoutes = require("./routes/shop");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use((req, res, next) => {
-//   User.findUser("65ad01550ca95774f179db9d")
-//     .then((user) => {
-//       req.user = new User(user.name, user.email, user.cart, user._id);
-//       next();
-//     })
-//     .catch((err) => console.error(err));
-// });
+app.use((req, res, next) => {
+  User.findById("65af341af28bba62e076a54e")
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.error(err));
+});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -37,7 +37,16 @@ app.use(errorController.get404);
 mongoose
   .connect(process.env.MONGO_DRIVER)
   .then((result) => {
-    // console.log(result);
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "Lakshmi",
+          email: "lakshmi@gmail.com",
+          cart: { items: [] },
+        });
+        user.save();
+      }
+    });
     console.log("Connected to MongoDb");
     app.listen(3000);
   })

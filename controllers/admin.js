@@ -14,7 +14,13 @@ exports.postAddProduct = async (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    const product = new Product({ title, imageUrl, price, description });
+    const product = new Product({
+      title,
+      imageUrl,
+      price,
+      description,
+      userId: req.user,
+    });
     const result = await product.save();
     console.log("Product created");
     console.log(result);
@@ -67,13 +73,15 @@ exports.postEditProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
   console.log("hit");
   Product.find()
-    .then((result) =>
+    .populate("userId", "name -_id email")
+    .then((products) => {
+      console.log(products);
       res.render("admin/products", {
-        prods: result,
+        prods: products,
         pageTitle: "Admin Products",
         path: "/admin/products",
-      })
-    )
+      });
+    })
     .catch((err) => console.error(err));
 };
 
